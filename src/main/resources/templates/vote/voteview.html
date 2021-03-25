@@ -18,12 +18,12 @@
         <SPAN class="return"><A th:href="@{/voteUser/out}">注销</A></SPAN>
 </DIV>
 
-<DIV class="search">
-    <FORM action="Subject-search.action" method="post">
-        <INPUT name="keywords" class="input-text" type="text">
-        <INPUT name="submit" class="input-button" type="submit" value=""/>
-    </FORM>
-</DIV>
+    <DIV class="search">
+        <FORM th:action="@{/voteSubject/page}" method="post">
+            <INPUT name="vs_title" class="input-text" type="text">
+            <INPUT name="submit" class="input-button" type="submit" value="">
+        </FORM>
+    </DIV>
 
 </DIV>
 <DIV class="wrap" id="vote">

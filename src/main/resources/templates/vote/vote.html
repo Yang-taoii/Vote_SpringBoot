@@ -18,9 +18,9 @@
     </DIV>
 
     <DIV class="search">
-        <FORM action="Subject-search.action" method="post">
-            <INPUT name="keywords" class="input-text" type="text"/>
-            <INPUT name="submit" class="input-button" type="submit" value=""/>
+        <FORM th:action="@{/voteSubject/page}" method="post">
+            <INPUT name="vs_title" class="input-text" type="text">
+            <INPUT name="submit" class="input-button" type="submit" value="">
         </FORM>
     </DIV>
 
