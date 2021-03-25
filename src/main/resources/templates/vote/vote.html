@@ -4,6 +4,7 @@
     <TITLE>参与投票</TITLE>
     <LINK th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
     <SCRIPT th:src="@{/js/jquery-3.4.1.js}" type="text/javascript"></SCRIPT>
+    <script th:src="@{/js/vote.js}" type="text/javascript"></script>
 </HEAD>
 
 <BODY>
@@ -32,10 +33,10 @@
   <H4>[[${ss.vs_title}]]</H4>
   <P class="info">共有 [[${ss.options}]] 个选项，已有 [[${ss.totals}]] 个投票。单选/多选  [[${ss.vs_type}]]</P>
 
-      <FORM th:action="@{/voteItem/vote}" method="post">
+      <FORM onsubmit="return checkVote()" th:action="@{/voteItem/vote}" method="post">
 
-          <INPUT name="vs_id" type="hidden" th:value="${ss.get('vs_id')}">
-          <input name="vu_user_id" type="hidden" th:value="${session.loginUser.vuUserId}">
+          <INPUT name="vs_id" type="hidden" th:value="${ss.get('vs_id')}" id="vs_id">
+          <input name="vu_user_id" type="hidden" th:value="${session.loginUser.vuUserId}" id="vu_user_id">
 
           <ol>
               <li th:each="op:${options}">
