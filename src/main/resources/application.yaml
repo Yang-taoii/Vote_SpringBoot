@@ -1,0 +1,48 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/db01?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: root
+
+    druid:
+      stat-view-servlet:  #druid 监控页功能
+        enabled: true
+        login-username: yangtao
+        login-password: 123456
+      web-stat-filter:  #druid 监控web功能
+        enabled: true
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'  #不监控
+        url-pattern: /*   #监控所有请求
+
+      aop-patterns: com.yaotao.*  # Spring监控AOP切入点，如x.y.z.service.*,配置多个英文逗号分隔
+
+      filter:
+        wall:
+          config:
+            drop-table-allow: false  #设置防火墙不允许执行的操作
+
+  resources:
+    static-locations: classpath:/templates/,classpath:/META-NF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+  mvc:
+    format:
+      date: yyyy-MM-dd
+  thymeleaf:
+    cache: false
+
+
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.yangtao.springboot.entity
+  global-config:
+    db-config:
+      logic-not-delete-value: 0
+      logic-delete-value: 1
+  mapper-locations: classpath*:/mapper/*.xml
+
+
+
+

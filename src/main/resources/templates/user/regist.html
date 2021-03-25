@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<HEAD>
+    <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <TITLE>注册</TITLE>
+    <LINK th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+    <SCRIPT th:src="@{/js/jquery-3.4.1.js}" type="text/javascript"></SCRIPT>
+    <script type="text/javascript" th:src="@{/js/user.js}"></script>
+</HEAD>
+
+<BODY>
+<DIV class="wrap" id="header"><IMG th:src="@{/images/logo.gif}"> </DIV>
+
+<DIV class="wrap" id="navbar">
+    <DIV class="search"></DIV>
+</DIV>
+
+<DIV class="box" id="register">
+    <H2>新用户注册</H2>
+    <DIV class="content">
+        <FORM onsubmit="return check11()" th:action="@{/voteUser/register}" method="post">
+            <DL>
+                <DT>用户名：</DT>
+                <DD>
+                    <INPUT name="vuUserName" class="input-text" id="userName" type="text"/>
+                    &emsp;<span id="msg1"></span>
+                </DD>
+                <DT>密码：</DT>
+                <DD><INPUT name="vuPassword" class="input-text" id="password" type="password"/>
+                    &emsp;<span id="msg2"></span></DD>
+                <DT>确认密码：</DT>
+                <DD><INPUT name="confirmPassword" class="input-text" id="password22" type="password"/>
+                    &emsp;<span id="msg3"></span></DD>
+                <DT></DT>
+                <DD><INPUT name="submit" class="input-button" type="submit" value=""/></DD>
+            </DL>
+        </FORM>
+<DIV class="error"></DIV>
+<DIV class="error"></DIV>
+    </DIV>
+</DIV>
+<DIV class="wrap" id="footer">北大青鸟 © 版权所有 </DIV></BODY></HTML>

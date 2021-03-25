@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yangtao.vote.mapper.VoteSubjectMapper">
+
+    <select id="selectConditionPage" resultType="java.util.Map">
+        select u.*,s.*,o.* from vote_item i
+        inner join vote_option o on o.vo_id = i.vo_id
+        inner join vote_subject s on s.vs_id = i.vs_id
+        inner join vote_user u on u.vu_user_id = i.vu_user_id
+        <where>
+            <if test="vs_title != null and vs_title!='' ">s.vs_title like concat('%',#{vs_title},'%')</if>
+        </where>
+    </select>
+    <select id="selectOptionAndTotal" resultType="java.util.Map">
+        SELECT s.vs_id,s.vs_title,COUNT(DISTINCT o.vo_id) as options ,COUNT(DISTINCT i.vi_id) as totals
+	    FROM vote_subject s
+	    LEFT JOIN vote_option o ON s.vs_id=o.vs_id
+        LEFT JOIN vote_item i ON s.vs_id=i.vs_id
+        <where>
+            <if test="vs_title != null and vs_title!='' ">s.vs_title like concat('%',#{vs_title},'%')</if>
+        </where>
+        GROUP BY s.vs_id,s.vs_title
+    </select>
+
+
+    <select id="selectOptionAndTotalById" resultType="java.util.Map">
+        SELECT s.vs_id,s.vs_title,s.vs_type,COUNT(DISTINCT o.vo_id) as options ,COUNT(DISTINCT i.vi_id) as totals
+	    FROM vote_subject s
+	    LEFT JOIN vote_option o ON s.vs_id=o.vs_id
+        LEFT JOIN vote_item i ON s.vs_id=i.vs_id
+        where s.vs_id = #{vs_id}
+    </select>
+
+    <select id="selectOptionsBySubjectId" resultType="java.util.Map">
+        SELECT o.vo_id , o.vs_id, o.vo_option oo  ,COUNT(i.vs_id) AS cc,o.vo_order
+        FROM  vote_option o
+        LEFT JOIN vote_item i ON o.vo_id=i.vo_id
+        GROUP BY vo_id
+        HAVING vs_id=#{vs_id}
+    </select>
+
+
+</mapper>

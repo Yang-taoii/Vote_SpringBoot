@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yangtao.vote.mapper.VoteUserMapper">
+    <select id="selectUserByName" resultType="com.yangtao.vote.entity.VoteUser">
+        select * from vote_user where vu_user_name = #{vu_user_name}
+    </select>
+</mapper>

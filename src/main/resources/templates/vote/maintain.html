@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<HEAD>
+    <TITLE>投票列表</TITLE>
+    <LINK th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+    <SCRIPT th:src="@{/js/jquery-3.4.1.js}" type="text/javascript"></SCRIPT>
+    <script th:src="@{/js/maintain.js}"></script>
+</HEAD>
+
+<BODY>
+<DIV class="wrap" id="header"><IMG th:src="@{/images/logo.gif}"></DIV>
+<DIV class="wrap" id="navbar">
+
+<DIV class="profile">您好，[[${session.loginUser.vuUserName}]]
+        <SPAN class="return"><A th:href="@{/voteSubject/page}">返回列表</A></SPAN>
+		 <SPAN class="addnew"><A th:href="@{/voteSubject/add.html}">添加新投票</A></SPAN>
+<!--		 <SPAN class="modify"><A th:href="@{/voteSubject/modify.html}">维护</A></SPAN>-->
+		 <SPAN class="return"><A th:href="@{/voteUser/out}">注销</A></SPAN>
+</DIV>
+
+    <DIV class="search">
+        <FORM th:action="@{/voteSubject/maintain.html}" method="post">
+            <INPUT name="vs_title" class="input-text" type="text">
+            <INPUT name="submit" class="input-button" type="submit" value="">
+        </FORM>
+    </DIV>
+
+</DIV>
+<DIV class="wrap" id="vote">
+    <H2>投票列表</H2>
+    <DIV style="float: right;"><A th:href="@{/voteSubject/maintain.html(current=1)}">首页</A>
+    | 					 上一页				  | 					 下一页				  | 			 <A th:href="@{/voteSubject/maintain.html(current=${pages})}">末页</A>
+    </DIV><BR>
+
+    <UL class="list">
+      <LI class="odd" th:each="subject:${subjects}">
+        <H4><A th:href="@{/voteSubject/getById(vs_id=${subject.get('vs_id')})}">[[${subject.vs_title}]]</A></H4>
+
+        <DIV class="join">
+            <A th:href="@{/voteOption/modify.html(vs_id=${subject.get('vs_id')})}" class="mod">修改</A>
+            <A href="javascript:void(0)" class="delete">删除</A>
+            <input type="hidden" th:value="${subject.get('vs_id')}">
+        </DIV>
+
+
+        <P class="info">共有 [[${subject.options}]] 个选项，已有 						 [[${subject.totals}]]						 个投票。</P>
+      </LI>
+    </UL>
+
+    <DIV style="float: right;"><A th:href="@{/voteSubject/maintain.html(current=1)}">首页</A>
+    | 					 上一页				  | 					 下一页				  | 			 <A th:href="@{/voteSubject/maintain.html(current=${pages})}">末页</A>
+    	 </DIV>
+    </DIV>
+<DIV class="wrap" id="footer">	北大青鸟 © 版权所有 </DIV></BODY></HTML>

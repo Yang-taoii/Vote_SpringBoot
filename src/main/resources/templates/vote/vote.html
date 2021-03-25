@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<HEAD>
+    <TITLE>参与投票</TITLE>
+    <LINK th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+    <SCRIPT th:src="@{/js/jquery-3.4.1.js}" type="text/javascript"></SCRIPT>
+</HEAD>
+
+<BODY>
+<DIV class="wrap" id="header"><IMG th:src="@{/images/logo.gif}"></DIV>
+<DIV class="wrap" id="navbar">
+
+    <DIV class="profile">您好，[[${session.loginUser.vuUserName}]]
+        <SPAN class="return"><A th:href="@{/voteSubject/page}">返回列表</A></SPAN>
+        <SPAN class="addnew"><A th:href="@{/voteSubject/add.html}">添加新投票</A></SPAN>
+        <SPAN class="modify"><A th:href="@{/voteSubject/maintain.html}">维护</A></SPAN>
+        <SPAN class="return"><A th:href="@{/voteUser/out}">注销</A></SPAN>
+    </DIV>
+
+    <DIV class="search">
+        <FORM action="Subject-search.action" method="post">
+            <INPUT name="keywords" class="input-text" type="text"/>
+            <INPUT name="submit" class="input-button" type="submit" value=""/>
+        </FORM>
+    </DIV>
+
+</DIV>
+<DIV class="wrap" id="vote">
+<H2>参与投票</H2>
+<UL class="list">
+  <LI>
+  <H4>[[${ss.vs_title}]]</H4>
+  <P class="info">共有 [[${ss.options}]] 个选项，已有 [[${ss.totals}]] 个投票。单选/多选  [[${ss.vs_type}]]</P>
+
+      <FORM th:action="@{/voteItem/vote}" method="post">
+
+          <INPUT name="vs_id" type="hidden" th:value="${ss.get('vs_id')}">
+          <input name="vu_user_id" type="hidden" th:value="${session.loginUser.vuUserId}">
+
+          <ol>
+              <li th:each="op:${options}">
+                  <input th:if="${ss.get('vs_type')} eq 1"  name="options" type="radio" th:value="${op.get('vo_id')}" th:text="${op.get('oo')}">
+                  <input th:if="${ss.get('vs_type') eq 2}" name="options" type="checkbox" th:value="${op.get('vo_id')}" th:text="${op.get('oo')}">
+              </li>
+
+          </ol>
+
+        <P class="voteView">
+            <INPUT type="image" th:src="@{/images/button_vote.gif}"/>
+            <A th:href="@{/voteSubject/getById(vs_id=${ss.get('vs_id')})}"><IMG th:src="@{/images/button_view.gif}"/></A>
+        </P>
+      </FORM>
+  </LI>
+</UL>
+</DIV>
+<DIV class="wrap" id="footer">	北大青鸟 © 版权所有 </DIV></BODY></HTML>

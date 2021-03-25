@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<HEAD>
+  <META content="IE=11.0000" http-equiv="X-UA-Compatible">
+  <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <TITLE>登录页</TITLE>
+  <LINK th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+  <SCRIPT th:src="@{/js/jquery-3.4.1.js}" type="text/javascript"></SCRIPT>
+  <SCRIPT type="text/javascript">
+      window.onload = function(){
+      const input = document.getElementById("loginBox").getElementsByTagName("input");
+      for(i=0; i<input.length; i++) {
+        const type = input[i].getAttribute("type");
+        if(type === "text" || type === "password") {
+			input[i].onfocus = function(){
+				this.className += " input-text-over";
+			}
+			input[i].onblur = function(){
+				this.className = this.className.replace(/input-text-over/, "");
+			}
+		} else if(type === "submit") {
+			input[i].onmouseover = function(){
+				this.className += " input-submit-over";
+			}
+			input[i].onmouseout = function(){
+				this.className = this.className.replace(/input-button-over/, "");
+			}
+		}
+	}
+}
+</SCRIPT>
+</HEAD>
+<BODY>
+<DIV class="wrap" id="header"><IMG th:src="@{/images/logo.gif}"> </DIV>
+
+<DIV class="wrap" id="login">
+<DIV class="main">
+<DIV class="corner"></DIV>
+<DIV class="introduce">
+<H2>北大青鸟</H2>
+<P>网上调查系统...</P></DIV>
+<DIV class="login">
+<H2>用户登录</H2>
+  <p th:text="${errorMsg}" style="color: red"></p>
+  <FORM th:action="@{/voteUser/login}" method="post">
+      <DL id="loginBox">
+
+        <DT>用户名：</DT>
+        <DD><INPUT name="vuUserName" class="input-text" type="text" required></DD>
+
+        <DT>密　码：</DT>
+        <DD><INPUT name="vuPassword" class="input-text" type="password" required></DD>
+
+        <DT></DT>
+
+        <DD>
+          <INPUT name="submit" class="input-button" type="submit" value="登录">
+          <A th:href="@{/voteUser/toRegister}">新用户注册</A>
+        </DD>
+      </DL>
+  </FORM>
+<DIV class="error"></DIV>
+</DIV>
+</DIV>
+</DIV>
+<DIV class="wrap"></DIV>
+<DIV class="wrap" id="footer">	北大青鸟 © 版权所有 </DIV></BODY></HTML>

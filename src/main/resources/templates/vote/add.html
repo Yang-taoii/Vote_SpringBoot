@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<HEAD>
+    <TITLE>发布新投票</TITLE>
+    <LINK th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+    <SCRIPT th:src="@{/js/jquery-3.4.1.js}" type="text/javascript"></SCRIPT>
+    <script th:src="@{/js/add.js}" type="text/javascript"></script>
+</HEAD>
+
+<BODY>
+
+<DIV class="wrap" id="header"><IMG th:src="@{/images/logo.gif}"></DIV>
+<DIV class="wrap" id="navbar">
+
+    <DIV class="profile">您好，[[${session.loginUser.vuUserName}]]  id：[[${session.loginUser.vuUserId}]]
+        <SPAN class="return"><A th:href="@{/voteSubject/page}">返回列表</A></SPAN>
+        <SPAN class="addnew"><A th:href="@{/voteSubject/add.html}">添加新投票</A></SPAN>
+        <SPAN class="modify"><A th:href="@{/voteSubject/maintain.html}">维护</A></SPAN>
+        <SPAN class="return"><A th:href="@{/voteUser/out}">注销</A></SPAN>
+    </DIV>
+    <DIV class="search">
+        <FORM th:action="@{/voteSubject/page}" method="post">
+            <INPUT name="vs_title" class="input-text" type="text">
+            <INPUT name="submit" class="input-button" type="submit" value="">
+        </FORM>
+    </DIV>
+</DIV>
+
+<DIV class="box" id="voteManage">
+<H2>添加新投票</H2>
+<DIV class="content">
+    <FORM onsubmit="return check();" th:action="@{/voteSubject/add}" method="post" id="form11">
+        <DL>
+          <DT>投票内容：</DT>
+          <DD>
+              <INPUT name="vs_title" class="input-text" id="title" type="text">
+              <span class="span"></span>
+              <input name="vu_user_id" type="hidden" th:value="${session.loginUser.vuUserId}">
+          </DD>
+
+          <DT>投票类型：</DT>
+          <DD>
+              <INPUT name="vs_type" type="radio" value="1">单选
+              <INPUT name="vs_type" type="radio" value="2">多选
+          </DD>
+          <DT>投票选项：</DT>
+          <DD id="voteoptions">
+              <P><INPUT name="vo_option" class="input-text" type="text"> <span class="span"></span></P>
+              <P><INPUT name="vo_option" class="input-text" type="text"> <span class="span"></span></P>
+          </DD>
+          <DT></DT>
+          <DD class="button">
+              <INPUT type="image" th:src="@{/images/button_submit.gif}">
+              <A onclick="AddOption()" href="javascript:;">增加选项</A>
+              <A th:href="@{/voteSubject/page}">取消操作</A>
+          </DD>
+        </DL>
+    </FORM>
+</DIV>
+</DIV>
+<DIV class="wrap" id="footer">	北大青鸟 © 版权所有 </DIV></BODY></HTML>

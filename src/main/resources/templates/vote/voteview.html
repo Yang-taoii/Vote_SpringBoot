@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<HEAD>
+  <TITLE>详情页</TITLE>
+  <LINK th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+  <SCRIPT th:src="@{/static/js/jquery-3.4.1.js}" type="text/javascript"></SCRIPT>
+</HEAD>
+
+<BODY>
+<DIV class="wrap" id="header"><IMG th:src="@{/images/logo.gif}"></DIV>
+<DIV class="wrap" id="navbar">
+
+<DIV class="profile">您好，[[${session.loginUser.vuUserName}]]
+        <SPAN class="return"><A th:href="@{/voteSubject/page}">返回列表</A></SPAN>
+        <SPAN class="addnew"><A th:href="@{/voteSubject/add.html}">添加新投票</A></SPAN>
+        <SPAN class="modify"><A th:href="@{/voteSubject/maintain.html}">维护</A></SPAN>
+        <SPAN class="return"><A th:href="@{/voteUser/out}">注销</A></SPAN>
+</DIV>
+
+<DIV class="search">
+    <FORM action="Subject-search.action" method="post">
+        <INPUT name="keywords" class="input-text" type="text">
+        <INPUT name="submit" class="input-button" type="submit" value=""/>
+    </FORM>
+</DIV>
+
+</DIV>
+<DIV class="wrap" id="vote">
+<H2>查看投票</H2>
+<UL class="list">
+  <LI>
+  <H4>[[${getById.vs_title}]]</H4>
+  <P class="info">共有 [[${getById.options}]] 个选项，已有 [[${getById.totals}]] 个投票。</P>
+  <OL>
+    <LI th:each="option:${options}">
+      [[${option.oo}]]
+      <DIV class="rate">
+            <DIV class="ratebg" th:if="${getById.get('totals')} gt 0">
+                <DIV class="percent" th:style="@{'width:' +  ${option.cc} / ${getById.totals} * 100 +'%;'} "></DIV>
+            </DIV>
+            <P th:if="${getById.get('totals')} gt 0">[[${option.cc}]]票<SPAN>[[@{${option.cc} / ${getById.totals} * 100+'%'}]]</SPAN></P>
+
+
+            <DIV class="ratebg" th:if="${getById.get('totals')} eq 0">
+              <DIV class="percent" style="width: 0"></DIV>
+            </DIV>
+            <P th:if="${getById.get('totals')} eq 0">[[${option.cc}]]票<SPAN>0%</SPAN></P>
+      </DIV>
+    </LI>
+  </OL>
+  <DIV class="goback"><A th:href="@{/voteSubject/page}">返回投票列表</A></DIV></LI></UL>
+</DIV>
+<DIV class="wrap" id="footer">	北大青鸟 © 版权所有 </DIV></BODY></HTML>
